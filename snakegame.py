@@ -33,17 +33,21 @@ segments = []
 
 # Function
 
-def go_up():
-    head.direction = "up"
+def go_up(): 
+    if head.direction !="down":
+        head.direction = "up"
 
 def go_down():
-    head.direction = "down"
+    if head.direction !="up":
+        head.direction = "down"
 
 def go_left():
-    head.direction = "left"
+    if head.direction !="right":
+        head.direction = "left"
 
 def go_right():
-    head.direction = "right"
+    if head.direction !="left":
+        head.direction = "right"
 
 def move():
     if head.direction == "up":
@@ -73,8 +77,21 @@ wn.onkeypress(go_right, "d")
 while True:
     wn.update()
 
+    # Border collison
+    if head.xcor()>290 or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
+        time.sleep(1)
+        head.goto(0,0)
+        head.direction = "stop"
+
+        #hide segment
+        for segment in segments:
+            segment.goto(1000, 1000)
+
+        # clear segments
+        segments.clear()    
+
     #collision
-    if head.distance(food) < 20:
+    if head.distance(food) < 10:
         # Change food position
         x = random.randint(-290, 290)
         y = random.randint(-290, 290)
@@ -101,6 +118,20 @@ while True:
         segments[0].goto(x, y)
 
     move()
+
+    # check body collision
+    for segment in segments:
+        if segment.distance(head) < 10:
+            time.sleep(1)
+            head.goto(0,0)
+            head.direction = "stop"
+
+            #hide segment
+            for segment in segments:
+                segment.goto(1000, 1000)
+
+            # clear segments
+            segments.clear()
 
     time.sleep(delay)
 
