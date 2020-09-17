@@ -1,5 +1,6 @@
 import turtle
 import time
+import random
 
 delay = 0.05
 
@@ -19,6 +20,16 @@ head.color("grey")
 head.penup()
 head.goto(0,0)
 head.direction = "stop"
+
+# food 
+food = turtle.Turtle()
+food.speed(0)
+food.shape("circle")
+food.color("red")
+food.penup()
+food.goto(0,100)
+
+
 
 # Function
 
@@ -62,6 +73,11 @@ wn.onkeypress(go_right, "d")
 while True:
     wn.update()
 
+    if head.distance(food) < 20:
+        # Change food position
+        x = random.randint(-290, 290)
+        y = random.randint(-290, 290)
+        food.goto(x, y)
     move()
 
     time.sleep(delay)
