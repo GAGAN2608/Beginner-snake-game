@@ -1,1 +1,1 @@
-# Snake Game using python and turtle
+# Snake Game(python and turtle module)
